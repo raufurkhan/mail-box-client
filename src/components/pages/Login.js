@@ -4,12 +4,22 @@ import Layout from '../../ui/Layout';
 import { bgurl } from '../../ui/background';
 
 import { useHistory } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { authActions } from '../store/authSlice';
 
 const Login = () => {
     const history = useHistory();
     const emailRef = useRef();
     const passwordRef = useRef();
     const confirmpasswordRef = useRef();
+
+    const dispatch = useDispatch();
+
+    const token = localStorage.getItem('token');
+  
+    if(token){
+      dispatch(authActions.login(token));
+    }
 
     // Define isLoading as a constant if it's always false
     const [isLogin, setIsLogin] = useState(false);
@@ -78,14 +88,13 @@ const Login = () => {
       //  
         const data = await response.json();
         const email = data.email;
-        const token = data.idToken;
+        dispatch(authActions.login(data.idToken));
         // console.log(token);
         const endpoint = `${email.replace(/\.|@/g, '')}`;
         localStorage.setItem('endpoint', endpoint);
-        // Redirect to Home component after successful login
-        history.replace('/home');
-        // Set the login state to true
-        setLoggedIn(true);
+        localStorage.setItem('email',email);
+        history.replace('/');
+  
       } catch (err) {
         alert(err.message);
       } finally {
@@ -106,7 +115,7 @@ const Login = () => {
       <Layout>
         {!isLoggedIn && (
           <div style={backgroundStyle} className="d-flex justify-content-center align-items-center min-vh-100">
-            <Col md={3} lg={3} className="border p-3 my-1 rounded bg-info text-light shadow mx-1">
+            <Col md={4} lg={4} className="border p-3 my-1 rounded bg-info text-light shadow mx-1">
               <h1 className="text-center">{isLogin ? 'Login' : 'Sign Up'}</h1>
               {error && <h5 className="text-danger text-center">{error}</h5>}
               <Form onSubmit={submitHandler}>
