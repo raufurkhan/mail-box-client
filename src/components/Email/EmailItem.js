@@ -1,21 +1,50 @@
 import React from 'react';
 import Card from 'react-bootstrap/Card';
 
-const EmailItem = ({ email }) => {
+import { Link } from 'react-router-dom';
+
+const unreadDotStyle = {
+  width: '15px',
+  height: '15px',
+  backgroundColor: 'blue',
+  borderRadius: '50%',
+  display: 'inline-block',
+  marginLeft: '5px', // Adjust as needed
+};
+const EmailItem = ({ email, onClick }) => {
+  const handleItemClick = () => {
+    onClick(email); // Call the onClick function with the email as a parameter
+  };
   return (
-    <Card className="email-item">
-      <Card.Body className="d-flex justify-content-between align-items-center">
-        <div className="d-flex align-items-center">
-          <input type="checkbox" className="mr-2" />
-          <Card.Title>{email.to}</Card.Title>
-        </div>
-        <div className="flex-grow-1">
-          <Card.Title>{email.subject}</Card.Title>
-          <Card.Text>{email.body}</Card.Text>
-        </div>
-        <span className="email-date mr-3">{email.time}</span>
-      </Card.Body>
-    </Card>
+  <Link
+  to={{
+    pathname: `/email/${email.subject}`,
+    state: { emailData: email }
+  }}
+  style={{ textDecoration: 'none', color: 'black' }}
+  onClick={handleItemClick} // Call the handleItemClick function when the link is clicked
+>
+  <Card className="email-item">
+  <Card.Body className="">
+          <div className="d-flex justify-content-between align-items-center">
+
+          {!email.read && <span style={unreadDotStyle}></span>}
+            {/* <input type="checkbox" className="mr-2" /> */}
+            <Card.Title className="mb-0">{email.to}</Card.Title>
+            <Card.Title className="mb-2">{email.subject}</Card.Title>
+
+            <small className="text-muted">
+
+              {email.time}
+
+            </small>
+
+          </div>
+
+          <Card.Text>{email.snippet}</Card.Text>
+        </Card.Body>
+      </Card>
+    </Link>
   );
 };
 

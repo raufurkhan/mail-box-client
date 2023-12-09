@@ -7,8 +7,7 @@ import { Fragment} from 'react';
 import { useSelector } from 'react-redux';
 import NavBar from './components/Navbar/Navbar';
 import Inbox from './components/Email/Inbox';
-import SideBar from './components/Navbar/Sidebar';
-import Login from './'
+import EmailView from './components/Email/EmailView'; // Import the
 
 function App() {
   const isLoggedIn = useSelector(state => state.auth.isLoggedIn);
@@ -19,16 +18,12 @@ function App() {
     <Fragment>
  <Router>
       
-
+ {isLoggedIn && <NavBar/>}{/* Render the NavBar for logged-in users */}
       <Switch>
-      {isLoggedIn && <NavBar/>}
-          <Route path="/" exact><Home />
-          </Route>
-          <Route path="/inbox"><Inbox/>
-          </Route>
-          <Route path="/home"><Home/>
-
-        </Route>
+      <Route path="/" exact component={Home} />
+          <Route path="/inbox" exact component={Inbox} />
+          {/* Add a route for viewing individual emails */}
+          <Route path="/inbox/email/:subject" component={EmailView} />
         
       </Switch>
 
