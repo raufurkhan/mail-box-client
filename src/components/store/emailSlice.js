@@ -23,9 +23,27 @@ export const emailSlice = createSlice({
         setEmailBody: (state, action) => {
             state.body = action.payload;
         },
-        resetEmailComposition: (state,action) => {
+        resetEmailComposition: (state) => {
             state.subject = '';
             state.body = EditorState.createEmpty();
+        },
+        addEmailToInbox: (state, action) => {
+            state.emails.push(action.payload);
+          },
+        deleteEmail: (state, action) => {
+            // Implement the logic to delete the email from the emails array
+            const emailIdToDelete = action.payload;
+            state.emails = state.emails.filter(email => email.id !== emailIdToDelete);
+        }, 
+        markEmailAsRead: (state, action) => {
+            const emailIdToMarkAsRead = action.payload;
+            state.emails = state.emails.map(email => {
+              if (email.id === emailIdToMarkAsRead) {
+                // Update the email's read property to true
+                return { ...email, read: true };
+              }
+              return email;
+            });
         }
     }
 

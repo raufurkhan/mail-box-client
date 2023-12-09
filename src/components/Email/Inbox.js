@@ -55,7 +55,7 @@ const Inbox = () => {
   
       // Call the fetchData function when needed
       fetchData();
-    }, [emailSlice]); // Make sure to include endpoint in the dependency array
+    }, []); // Make sure to include endpoint in the dependency array
   
     // Function to handle clicking on an email item
     const handleEmailClick = (email) => {
@@ -70,7 +70,7 @@ const Inbox = () => {
       setSelectedEmail(null);
       console.log('emailClose clikc');
     };
-  
+    console.log('i am inbox');
     return (
         <div className='mx-1 my-1 p-1' style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
         {/* Conditionally render Inbox or EmailView based on showEmailView */}

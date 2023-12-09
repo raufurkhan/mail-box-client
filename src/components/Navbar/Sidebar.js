@@ -53,7 +53,7 @@ console.log(unreadCount);
                     minWidth: '200px',
                     maxWidth: '200px',
                     overflow: 'hidden',
-                    [`d-lg-block ${isSidebarCollapsed ? 'd-none' : ''}`]: true,
+                    [`${isSidebarCollapsed ? 'd-none' : ''}`]: true,
                   }}
               >
                 <ul className="p-1">
@@ -116,7 +116,7 @@ console.log(unreadCount);
                       }}
                       onClick={LogoutHandler}
                     >
-                     <span className="ms-1 d-sm-inline">Logout</span>
+                      <span className="ms-1 text-danger d-sm-inline">Logout</span>
                   <i className={`bi bi-box-arrow-right`}></i>
                     </a>
                     </Container>
