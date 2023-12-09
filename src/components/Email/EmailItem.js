@@ -18,7 +18,7 @@ const EmailItem = ({ email, onClick }) => {
   const url='https://mail-box-50bc2-default-rtdb.firebaseio.com';
   const dispatch=useDispatch();
   const key = email.id;
-  console.log(key);
+  
   //deleteitem
   const deleteHandler = async (event) => {
     event.preventDefault();
@@ -37,7 +37,7 @@ const EmailItem = ({ email, onClick }) => {
 
       if (response.ok) {
         const responseData = await response.json(); // You can extract and log the response data
-        console.log('Email deleted successfully:', responseData);
+       
         dispatch(emailActions.deleteEmail(key));
         // If you need to perform any additional actions, you can do so here
       } else {
