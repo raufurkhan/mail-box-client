@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {  useState } from 'react';
 import EmailItem from './EmailItem'; // Assuming you have an EmailItem component
-import EmailView from './EmailView'; // Assuming you have an EmailView component
+ // Assuming you have an EmailView component
 import { Fragment } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { emailActions, emailSlice } from '../store/emailSlice';
+import { useSelector } from 'react-redux';
 
+
+import SentView from './SentView';
 const Sent = () => {
-    const endpoint = localStorage.getItem('endpoint');
-    const url = 'https://mail-box-50bc2-default-rtdb.firebaseio.com';
-  
-    const dispatch = useDispatch();
     const emails = useSelector((state)=>state.email.emails);
-
+    console.log(emails);
     const [selectedEmail, setSelectedEmail] = useState(null); // State to track selected email
     const [showEmailView, setShowEmailView] = useState(false); // State to control the visibility of the EmailView modal
   
@@ -23,18 +20,18 @@ const Sent = () => {
       setSelectedEmail(email);
       setShowEmailView(true); // Show the EmailView modal
     };
-  
+   
     // Function to close the EmailView modal
     const handleCloseEmailView = () => {
       setShowEmailView(false);
       setSelectedEmail(null);
     };
-  
+    console.log(emails);
     return (
       <div className='mx-1 my-1 p-1' style={{ overflowX: 'auto', whiteSpace: 'nowrap' }}>
     {/* Conditionally render Inbox or EmailView based on showEmailView */}
     {showEmailView &&
-      <EmailView email={selectedEmail} onClose={handleCloseEmailView} />}
+      <SentView email={selectedEmail} onClose={handleCloseEmailView} />}
   
     {!showEmailView && <Fragment>
       {/* Your inbox content goes here */}

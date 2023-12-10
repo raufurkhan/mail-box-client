@@ -9,7 +9,7 @@ import Draft from '../Email/Draft';
 import ComposeEmail from '../Email/ComposeEmail';
 import 'bootstrap-icons/font/bootstrap-icons.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { useEffect } from 'react';
+
 
 
 const SideBar = () => {

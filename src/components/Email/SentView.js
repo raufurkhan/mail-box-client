@@ -1,15 +1,14 @@
 import React from 'react';
-
-import { useDispatch } from 'react-redux';
+// import { useDispatch } from 'react-redux';
 import { useLocation, useHistory } from 'react-router-dom';
-import { emailActions } from '../store/emailSlice';
+// import { emailActions } from '../../store/emailSlice';
 import { Button, Container } from 'react-bootstrap';
 
-const EmailView = (props) => {
+const SentView = (props) => {
   const location = useLocation();
   const emailData = location.state.emailData; // Access the email data from the location state
-  const key = emailData.id;
-  const endpoint = localStorage.getItem('endpoint');
+
+
   const timeParts = emailData.time.split(' ');
 
   const datePart = timeParts[0];
@@ -22,53 +21,31 @@ const EmailView = (props) => {
   ];
   const day = date.getDate();
   const month = date.getMonth(); // Returns a zero-based index (0 for January, 1 for February, etc.)
-  const year = date.getFullYear();
+
   const formattedMonth = monthNames[month];
   const formattedDate = ` ${day} ${formattedMonth}`;
+
   const history = useHistory();
-  const url = 'https://mail-box-50bc2-default-rtdb.firebaseio.com';
-  const updatedData = { ...emailData, read: true };
-  const dispatch = useDispatch();
 
-  async function update() {
-    try {
-      const response = await fetch(`${url}/sent/${endpoint}/${key}.json`, {
-        method: 'PUT', // or 'PATCH' depending on your API's requirements
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedData),
-      });
 
-      if (response.ok) {
-        // The item was successfully updated
-        console.log(`Item at ${endpoint} updated successfully.`);
-        dispatch(emailActions.markEmailAsRead(key))
-      } else {
-        // Handle the error here
-        console.error(`Error updating item at ${endpoint}:`, response.status, response.statusText);
-      }
-    } catch (err) {
-        console.log('err', err);
-    }
-  }
+
   // Function to handle closing the modal
   const handleCloseModal = () => {
-
     // You can use the history object to navigate back to the inbox or any other route
     history.goBack(); // This will navigate back to the previous route (inbox)
     props.onClose();
-    update();
   };
+console.log(emailData);
   return (
     <Container className="mt-4">
-    <button className="btn btn-info my-2" onClick={handleCloseModal}>
-      <i className='bi bi-arrow-left'></i>
-    </button>
-    <div className="bg -light shadow rounded p-2 my-2 d-flex justify-content-between align-items-center">
-      <h3 className='text-bold'><strong>{emailData.subject}</strong></h3>
-      <i className='bi bi-star mx-2'></i>
+      <button className="btn btn-info my-2" onClick={handleCloseModal}>
+        <i className='bi bi-arrow-left'></i>
+      </button>
+      <div className="bg -light shadow rounded p-2 my-2 d-flex justify-content-between align-items-center">
+        <h3 className='text-bold'><strong>{emailData.subject}</strong></h3>
+        <i className='bi bi-star mx-2'></i>
       </div>
+
       <div className="d-flex justify-content-between align-items-center my-5">
         <i className="bi bi-person-circle" style={{ fontSize: '3rem' }}></i>
         <div>
@@ -104,4 +81,5 @@ const EmailView = (props) => {
     </Container>
   );
 };
-export default EmailView;
+
+export default SentView;

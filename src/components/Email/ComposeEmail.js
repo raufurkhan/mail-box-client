@@ -70,7 +70,7 @@ const ComposeEmail = (props) => {
             if (response.ok) {
                 console.log('Email sent successfully.');
                 dispatch(emailActions.resetEmailComposition());
-                dispatch(emailActions.addEmailToInbox(sentEmailData));
+               
             } else {
                 console.error('Failed to send email.');
             }

@@ -53,6 +53,7 @@ const EmailItem = ({ email, onClick }) => {
 //individual item displaying
   const handleItemClick = () => {
     onClick(email); // Call the onClick function with the email as a parameter
+    console.log('am i runing emailitem ');
   };
   return (
   <Link
@@ -64,7 +65,7 @@ const EmailItem = ({ email, onClick }) => {
   onClick={handleItemClick} // Call the handleItemClick function when the link is clicked
 >
   <Card className="email-item">
-  <Card.Body className="">
+  <Card.Body >
           <div className="d-flex justify-content-between align-items-center">
 
           {!email.read && <span style={unreadDotStyle}></span>}

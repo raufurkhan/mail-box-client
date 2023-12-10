@@ -5,8 +5,10 @@ const emailInitialState = {
     emails:[],
     email:'',
     subject: '',
-    body: EditorState.createEmpty(),
+    body: EditorState.createEmpty()
 }
+
+console.log(emailInitialState.emails);
 export const emailSlice = createSlice({
     name: 'email',
     initialState: emailInitialState,
@@ -27,9 +29,7 @@ export const emailSlice = createSlice({
             state.subject = '';
             state.body = EditorState.createEmpty();
         },
-        addEmailToInbox: (state, action) => {
-            state.emails.push(action.payload);
-          },
+     
         deleteEmail: (state, action) => {
             // Implement the logic to delete the email from the emails array
             const emailIdToDelete = action.payload;
