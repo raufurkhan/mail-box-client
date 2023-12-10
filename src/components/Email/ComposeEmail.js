@@ -1,5 +1,5 @@
 import React, { useState,useEffect } from 'react';
-import { Button, Modal, Container } from 'react-bootstrap';
+import { Button, Modal, Container,Form } from 'react-bootstrap';
 import { Editor } from 'react-draft-wysiwyg';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -72,7 +72,7 @@ const ComposeEmail = (props) => {
                 dispatch(emailActions.resetEmailComposition());
                
             } else {
-                console.error('Failed to send email.');
+                alert('Failed to send email.');
             }
         } catch (error) {
             console.error('Error sending email:', error);
@@ -97,26 +97,35 @@ const ComposeEmail = (props) => {
             </Modal.Header>
             <Modal.Body>
                 <Container>
-                    <input
-                        type='email'
-                        value={email}
-                        onChange={handleEmailChange}
-                        placeholder='To Email'
-                        className="form-control my-2"
-                    />
-                    <input
-                        type='text'
-                        value={subject}
-                        onChange={handleSubjectChange}
-                        placeholder='Subject'
-                        className="form-control my-2"
-                    />
-                    <Editor
-                        size='lg'
-                        editorState={body}
-                        onEditorStateChange={handleEditorStateChange}
-                        placeholder='Write your Email here'
-                    />
+                <Form.Group>
+                        <Form.Label>To Email</Form.Label>
+                        <div className="rounded p-1">
+                            <Form.Control
+                                type='email'
+                                value={email}
+                                onChange={handleEmailChange}
+                                placeholder='To Email'
+                            />
+                        </div>
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Subject</Form.Label>
+                        <Form.Control
+                            type='text'
+                            value={subject}
+                            onChange={handleSubjectChange}
+                            placeholder='Subject'
+                        />
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label>Write your Email here</Form.Label>
+                        <Editor
+                            size='lg'
+                            editorState={body}
+                            onEditorStateChange={handleEditorStateChange}
+                            placeholder='Write your Email here'
+                        />
+                    </Form.Group>
                 </Container>
             </Modal.Body>
             <Modal.Footer>

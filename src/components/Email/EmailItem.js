@@ -1,5 +1,5 @@
 import React from 'react';
-import {Card,Button} from 'react-bootstrap';
+import {Card} from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 
 import { Link } from 'react-router-dom';
@@ -36,7 +36,7 @@ const EmailItem = ({ email, onClick }) => {
       });
 
       if (response.ok) {
-        const responseData = await response.json(); // You can extract and log the response data
+       // const responseData = await response.json(); // You can extract and log the response data
        
         dispatch(emailActions.deleteEmail(key));
         // If you need to perform any additional actions, you can do so here
@@ -58,7 +58,7 @@ const EmailItem = ({ email, onClick }) => {
   return (
   <Link
   to={{
-    pathname: `/email/${email.subject}`,
+    pathname: `/emails/${email.subject}`,
     state: { emailData: email }
   }}
   style={{ textDecoration: 'none', color: 'black' }}

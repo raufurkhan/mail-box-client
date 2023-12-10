@@ -29,7 +29,10 @@ const SideBar = () => {
   }, 0);
 
   function LogoutHandler() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('endpoint')
     dispatch(authActions.logout());
+    
   }
   const toggleFolder = (folderName) => {
     dispatch(setActiveFolder(folderName)); // Dispatch the action to update activeFolder
